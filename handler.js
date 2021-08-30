@@ -47,31 +47,26 @@ module.exports = handle = (client, Client) => {
     	Client.cmd.on('listmsg', async(data) => {
     	const time = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 if(time < "23:59:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
                                         }
 if(time < "20:00:00"){
-var ucapanWaktu = 'Selamat petang'
+var ucapanWaktu = 'Good evening'
                                          }
 if(time < "18:00:00"){
-var ucapanWaktu = 'Selamat sore'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time < "15:00:00"){
-var ucapanWaktu = 'Selamat siang'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time < "11:00:00"){
-var ucapanWaktu = 'Selamat pagi'
+var ucapanWaktu = 'Good morning'
                                          }
 if(time < "03:30:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
 										}
              sec = []
           sec.push({
             "rows": [
-              {
-                "title": "List Menu",
-                "description": "", 
-                "rowId": `${data.prefix}listmenu`
-              }, 
               {
                 "title": "Group Menu", 
                 "description": "", 
@@ -81,56 +76,11 @@ var ucapanWaktu = 'Selamat malam'
                 "title": "Download Menu", 
                 "description": "", 
                 "rowId": `${data.prefix}dwmenu`
-              }, 
-              {
-                "title": "Sticker Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}smenu`
-              }, 
-              {
-                "title": "Education Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}emenu`
-              }, 
+              },  
               {
                 "title": "Searching Menu", 
                 "description": "", 
                 "rowId": `${data.prefix}srcmenu`
-              }, 
-              {
-                "title": "Primbon Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}pmenu`
-              }, 
-              {
-                "title": "Random Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}rnmenu`
-              }, 
-              {
-                "title": "Text Maker", 
-                "description": "", 
-                "rowId": `${data.prefix}txmaker`
-              }, 
-              {
-                "title": "Image Maker", 
-                "description": "", 
-                "rowId": `${data.prefix}imgmaker`
-              }, 
-              {
-                "title": "Asupan Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}asupan`
-              }, 
-              {
-                "title": "Random Image", 
-                "description": "", 
-                "rowId": `${data.prefix}randomimg`
-              }, 
-              {
-                "title": "Anime Menu", 
-                "description": "", 
-                "rowId": `${data.prefix}nimem`
               }, 
               {
                 "title": "Other Menu", 
@@ -142,12 +92,12 @@ var ucapanWaktu = 'Selamat malam'
                 "description": "", 
                 "rowId": `${data.prefix}ownerm`
               }
-              ], title: `Pilih Satu ya kak`
+              ], title: `Choose one, brother`
               })
           	let po = client.prepareMessageFromContent(data.from, {
 				  "listMessage":{
-                  "title": `MENU J-BOT`,
-                  "description": `${ucapanWaktu} kak *${data.pushname}*`,
+                  "title": `MENU DOC-BOT`,
+                  "description": `${ucapanWaktu} BRO/SIS *${data.pushname}*`,
                   "buttonText": "MENU!",
                   "listType": "SINGLE_SELECT",
                   "sections": sec}}, {}) 
@@ -407,33 +357,33 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
         Client.cmd.on('ytmp4', async (data) => {
             try {
                 if(isLimit(data.sender)) return data.reply(mess.limit)
-                if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}ytmp4 [ link ]*\nContoh : ${data.prefix}ytmp4 https://www.youtube.com/watch?v=0maWbr0FHKY`)
+                if(data.body == "") return data.reply(`Send orders *${data.prefix}ytmp4 [ link ]*\nExample : ${data.prefix}ytmp4 https://www.youtube.com/watch?v=0maWbr0FHKY`)
                 data.reply(mess.wait)
                 res = await axios.get(`${configs.apiUrl}/api/ytmp4/2?apikey=${configs.zeksKey}&url=${data.body}`)
                 if(res.data.status == false) data.reply(res.data.message)
                 ytm = res.data.result
-                teks = `*Data berhasil didapatkan!*\n\n*Judul* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Berhasil Didapatkan!*\n\n*Title* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : mp4\n*Link* : ${ytm.link}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, data.message)
+                teks = `*Data successfully obtained!*\n\n*Judul* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n\n_Please wait for the medium file sent may take a few minutes_`
+                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Successfully Obtained!*\n\n*Title* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : mp4\n*Link* : ${ytm.link}\n\n_For longer duration of the limit is presented in the form of a link_`, data.message)
                 Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', teks, data.message)
-                Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, `Video telah terkirim @${data.sender.split('@')[0]}`, data.message)
+                Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, `Video has been sent @${data.sender.split('@')[0]}`, data.message)
             } catch {
-                data.reply('Ups maaf server sedang error atau mungkin apikey invalid')
+                data.reply('Oops sorry the server is in error or maybe apikey invalid')
             }
         })
         Client.cmd.on('ytmp3', async (data) => {
             try {
                 if(isLimit(data.sender)) return data.reply(mess.limit)
-                if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}ytmp3 [ link ]*\nContoh : ${data.prefix}ytmp3 https://www.youtube.com/watch?v=0maWbr0FHKY`)
+                if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}ytmp3 [ link ]*\nExample : ${data.prefix}ytmp3 https://www.youtube.com/watch?v=0maWbr0FHKY`)
                 data.reply(mess.wait)
                 res = await axios.get(`${configs.apiUrl}/api/ytmp3/2?apikey=${configs.zeksKey}&url=${data.body}`)
                 if(res.data.status == false) data.reply(res.data.message)
                 ytm = res.data.result
-                teks = `*Data berhasil didapatkan!*\n\n*Judul* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Berhasil Didapatkan!*\n\n*Title* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : mp3\n*Link* : ${ytm.link}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, data.message)
+                teks = `*Data successfully obtained!*\n\n*Title* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n\n_Please wait for the medium file sent may take a few minutes_`
+                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Successfully Obtained!*\n\n*Title* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : mp3\n*Link* : ${ytm.link}\n\n_For longer duration of the limit is presented in the form of a link_`, data.message)
                 Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', teks, data.message)
                 Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp3`, ``, data.message)
             } catch {
-                data.reply('Ups maaf server sedang error atau mungkin apikey invalid')
+                data.reply('Oops sorry the server is in error or maybe apikey invalid')
             }
         })
         Client.cmd.on('tiktok', async(data) => {
@@ -444,17 +394,17 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
         Client.cmd.on('playvid', async (data) => {
             try {
                 if(isLimit(data.sender)) return data.reply(mess.limit)
-                if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}playvid [ query ]*\nContoh : ${data.prefix}playvid amv`)
+                if(data.body == "") return data.reply(`Send orders *${data.prefix}playvid [ query ]*\nExample : ${data.prefix}playvid amv`)
                 data.reply(mess.wait)
                 res = await axios.get(`${configs.apiUrl}/api/ytplaymp4/2?apikey=${configs.zeksKey}&q=${data.body}`)
                 if(res.data.status == false) data.reply(res.data.message)
                 ytm = res.data.result
-                teks = `*Data berhasil didapatkan!*\n\n*Judul* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n*Source* : ${ytm.source}\n\n_Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
-                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Berhasil Didapatkan!*\n\n*Title* : ${ytm.title}\n*Ukuran* : ${ytm.size}\n*Kualitas* : ${ytm.quality}\n*Ext* : mp4\n*Source* : ${ytm.source}\n*Link* : ${ytm.link}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`, data.message)
+                teks = `*Data successfully obtained!*\n\n*Title* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : ${ytm.ext}\n*Source* : ${ytm.source}\n\n_Please wait for the media file to be sent it may take some time minute_`
+                if(Number(ytm.size.split(' MB')[0]) >= 50.00) return Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', `*Data Successfully Obtained!*\n\n*Title* : ${ytm.title}\n*Size* : ${ytm.size}\n*Quality* : ${ytm.quality}\n*Ext* : mp4\n*Source* : ${ytm.source}\n*Link* : ${ytm.link}\n\n_For durations longer than the limit are presented in the form link_`, data.message)
                 Client.sendFileFromUrl(data.from, `${ytm.thumb}`, 'thumb.jpg', teks, data.message)
-                Client.sendFileFromUrl(data.from, `${ytm.link}`, 'video.mp4', `Video telah terkirim @${data.sender.split('@')[0]}`, data.message)
+                Client.sendFileFromUrl(data.from, `${ytm.link}`, 'video.mp4', `Video has been sent @${data.sender.split('@')[0]}`, data.message)
             } catch (e) {
-                data.reply('Ups maaf server sedang error atau mungkin apikey invalid')
+                data.reply('Oops sorry the server is in error or maybe apikey invalid')
             }
         })
         /*
@@ -759,19 +709,13 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
         })
         Client.cmd.on('limit', async (data) => {
             const dataUser = JSON.parse(fs.readFileSync('./lib/json/dataUser.json'))
-            if(dataUser[data.sender].premium) return data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\nAnda adalah user premium yang memiliki akses tanpa batas limit!`)
+            if(dataUser[data.sender].premium) return data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\nYou are a premium user have unlimited access!`)
             limits = configs.maxLimit - dataUser[data.sender].limit
-            if(limits <= 0) return data.reply("```" + `Limit anda sudah habis` + "```")
-            data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\n Limit anda tersisa ${limits || 30}\nLimit setiap hari di reset jam 00.00\nJika anda ingin mendapatkan unlimited limit silahkan chat owner bot ketik !owner`)
+            if(limits <= 0) return data.reply("```" + `Your limit is already finished` + "```")
+            data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\n Your limit left ${limits || 30}\nThe daily limit is reset hours 00.00\nIf you want to get unlimited limit, please chat owner bot type !owner`)
         })
         Client.cmd.on('sourcecode', async (data) => {
-		data.reply(`Bot ini di buat dengan bahasa pemrograman Node.js / JavaScript
-
-Original source code bot : https://github.com/justpiple/whatsapp-bot
-
-Source code yang dipakai : https://github.com/Dvnz99/wabot
-
-Apabila terjadi error, kalian bisa menghubungi owner bot ketik ${data.prefix}owner`)
+		data.reply(`HE HE YA BOOI :)`)
 		})
         /*OWNER*/
         Client.cmd.on('setpp', async (data) => {
@@ -875,7 +819,7 @@ Apabila terjadi error, kalian bisa menghubungi owner bot ketik ${data.prefix}own
             Client.acceptInviteLink(data.body).then(() => data.reply('ok')).catch(() => data.reply('failed'))
         })
         Client.cmd.on('owner', async (data) => {
-            Client.sendContact(data.from, { number: configs.ownerList[0].split('@')[0], name: 'owner' }, data.message)
+            Client.sendContact(data.from, { number: configs.ownerList[0].split('@')[0], name: 'DOCEDITOR' }, data.message)
         })
         Client.cmd.on('fetch', async(data) => {
            if (isLimit(data.sender)) return data.reply(mess.limit)
@@ -998,7 +942,7 @@ Apabila terjadi error, kalian bisa menghubungi owner bot ketik ${data.prefix}own
         })
 	    Client.cmd.on('play', async (data) =>{
             if(isLimit(data.sender)) return data.reply(mess.limit)
-            if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}youtubedl [ query ]*\nContoh : ${data.prefix}youtubedl Alan walker`)
+            if(data.body == "") return data.reply(`Send orders *${data.prefix}youtubedl [ query ]*\nContoh : ${data.prefix}youtubedl Alan walker`)
             data.reply(mess.wait)
 			axios.get(`${configs.apiUrl}/api/yts?apikey=${configs.zeksKey}&q=${data.body}`).then((xres) =>{
 			if (!xres.data.status || !xres.data.result) return data.reply(xres.data.message)
@@ -1435,30 +1379,30 @@ const formater1 = (seconds) => {
     
 const time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 if(time2 < "23:59:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
                                         }
 if(time2 < "20:00:00"){
-var ucapanWaktu = 'Selamat petang'
+var ucapanWaktu = 'Good evening'
                                          }
 if(time2 < "18:00:00"){
-var ucapanWaktu = 'Selamat sore'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time2 < "15:00:00"){
-var ucapanWaktu = 'Selamat siang'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time2 < "11:00:00"){
-var ucapanWaktu = 'Selamat pagi'
+var ucapanWaktu = 'Good morning'
                                          }
 if(time2 < "03:30:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
 										}
 
-    teksny = `${ucapanWaktu} kak @${num.split("@")[0]}, Semoga harimu menyenangkan
+    teksny = `${ucapanWaktu} VRO @${num.split("@")[0]}, Have a nice day pleasant
 
 Follow IG 
-https://Instagram.com/akmalz.real
+https://Instagram.com/doceditormmx
 
-Note : Semua fitur free ya, ga semua fitur work krn sy noob :)
+Note : All features are free, not all features work because I'm noob :)
 `
 
 	footer = `*── 「 BOT STAT 」 ──*
@@ -1476,7 +1420,7 @@ Runtime : ${formater1(uptime1)}
 Speed : ${latensip.toFixed(4)} Second
 RAM : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB
 
-*J-BOT | Recode By* @${628885960825}`
+*DOC-BOT | Recode By* @${919061363103}`
 
  	                 const mediaMsg = await client.prepareMessageMedia(await getBuffer(configs.imgUrl), 'imageMessage')
                      const buttonMessage = {
@@ -1544,20 +1488,6 @@ case 'audtag':
 					//onlydev.sendMessage(from,media,audio,{contextInfo: { mentionedJid: mem },quoted: mek, ptt : true })
 					/*onlydev.sendMessage(from, options, text)*/
 				break
-                    /*STICKER*/
-                case 'sgif':
-                case 'sticker':
-                case 's':
-                case 'stiker':
-                case 'stickergif':
-                case 'stikergif':
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(type != 'videoMessage' && !isQuotedVideo && !isQuotedImage && type != 'imageMessage') return data.reply('Wrong format!')
-                    const getbuff = data.isQuotedVideo || data.isQuotedImage ? JSON.parse(JSON.stringify(data.message).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : data.message
-                    const dlfile = await client.downloadMediaMessage(getbuff)
-                    if(type == 'videoMessage' || isQuotedVideo) Client.sendMp4AsSticker(from, dlfile.toString('base64'), message, { pack: `${configs.pack}`, author: `${configs.author}` })
-                    else Client.sendImageAsSticker(from, dlfile.toString('base64'), message, { pack: `${configs.pack}`, author: `${configs.author}` })
-                    break
                 case 'tomp3':
                     if(isLimit(data.sender)) return data.reply(mess.limit)
 					data.reply(mess.wait)
@@ -1583,102 +1513,6 @@ case 'audtag':
 					})
 					break
 */
-                case 'stikerwm':
-                case 'stickerwm':
-                case 'swm':
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(type != 'videoMessage' && !isQuotedVideo && !isQuotedImage && type != 'imageMessage') return data.reply('Wrong format!')
-                    if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ pack|author ]*\nContoh : ${data.prefix}${data.command} punya|elios`)
-                    data.reply(mess.wait)
-                    const getbuffs = data.isQuotedVideo || data.isQuotedImage ? JSON.parse(JSON.stringify(data.message).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : data.message
-                    const dlfiles = await client.downloadMediaMessage(getbuffs)
-                    text = data.body.split('|')
-                    if(type == 'videoMessage' || isQuotedVideo) Client.sendMp4AsSticker(from, dlfiles.toString('base64'), message, { crop: false, pack: `${text[0]}`, author: `${text[1]}` })
-                    else Client.sendImageAsSticker(from, dlfiles.toString('base64'), message, { pack: `${text[0]}`, author: `${text[1]}` })
-                    break
-                case 'stikeremoji':
-                case 'stickeremoji':
-                case 'semoji':
-                    try {
-                        if(isLimit(data.sender)) return data.reply(mess.limit)
-                        if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ emoji ]*\nContoh : ${data.prefix}${data.command} 😃`)
-                        Client.sendStickerFromUrl(from, `${configs.apiUrl}/api/emoji-image?apikey=${configs.zeksKey}&emoji=${encodeURIComponent(data.body)}`, message, { pack: `${configs.pack}`, author: `${configs.author}` })
-                    } catch {
-                        data.reply('error')
-                    }
-                    break
-                case 'takestick':
-                case 'takestik':
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(!data.isQuotedSticker) return data.reply('Reply sticker!')
-                    if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ pack|author ]*\nContoh : ${data.prefix}${data.command} punya|elios`)
-                    data.reply(mess.wait)
-                    p = data.body
-                    text = p.split('|')
-                    const buff = await client.downloadMediaMessage(JSON.parse(JSON.stringify(data.message).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo)
-                    Client.sendWebpAsSticker(data.from, buff.toString('base64'), data.message, {
-                        pack: `${text[0]}`,
-                        author: `${text[1]}`
-                    })
-                    break
-                case 'stikerfire':
-                case 'stickerfire':
-                case 'sfire':
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(data.isQuotedImage || data.type == 'imageMessage') {
-                        const getbuffs = data.isQuotedImage ? await data.downloadMediaQuotedMessage() : await data.downloadMediaMessage()
-                        bodyForm = new FormData()
-                        bodyForm.append('image', getbuffs, 'myimg.jpeg')
-                        const getAxios = await axios(`${configs.apiUrl}/api/burning-image?apikey=${configs.zeksKey}`, {
-                            method: 'POST',
-                            responseType: "arraybuffer",
-                            headers: {
-                                ...bodyForm.getHeaders()
-                            },
-                            data: bodyForm.getBuffer()
-                        })
-                        Client.sendMediaAsSticker(data.from, getAxios.data.toString('base64'), data.message, {
-                            pack: `${configs.pack}`,
-                            author: `${configs.author}`
-                        })
-                    } else if(data.mentionedJidList.length > 0) {
-                        ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
-                        if(!ppUrl) return data.reply('Profile picture not found!')
-                        Client.sendStickerFromUrl(data.from, `${configs.apiUrl}/api/burning-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, data.message, {
-                            pack: `${configs.pack}`,
-                            author: `${configs.author}`
-                        })
-                    } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}stickerfire`)
-                    break
-                case 'stikernobg':
-                case 'stickernobg':
-                case 'snobg':
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(data.isQuotedImage || data.type == 'imageMessage') {
-                        const getbuffs = data.isQuotedImage ? await data.downloadMediaQuotedMessage() : await data.downloadMediaMessage()
-                        bodyForm = new FormData()
-                        bodyForm.append('image', getbuffs, 'myimg.jpeg')
-                        const getAxios = await axios(`${configs.apiUrl}/api/removebg?apikey=${configs.zeksKey}`, {
-                            method: 'POST',
-                            responseType: "arraybuffer",
-                            headers: {
-                                ...bodyForm.getHeaders()
-                            },
-                            data: bodyForm.getBuffer()
-                        })
-                        Client.sendMediaAsSticker(data.from, getAxios.data.toString('base64'), data.message, {
-                            pack: `${configs.pack}`,
-                            author: `${configs.author}`
-                        })
-                    } else if(data.mentionedJidList.length > 0) {
-                        ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
-                        if(!ppUrl) return data.reply('Profile picture not found!')
-                        Client.sendStickerFromUrl(data.from, `${configs.apiUrl}/api/removebg?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, data.message, {
-                            pack: `${configs.pack}`,
-                            author: `${configs.author}`
-                        })
-                    } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}stickerfire`)
-                    break
                     /*TEXT MAKER*/
                 case 'qrencode':
                 case 'barcode':
@@ -2201,31 +2035,26 @@ case 'audtag':
                 case '2.453746655066493e+123':
                 const time3 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 if(time3 < "23:59:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
                                         }
 if(time3 < "20:00:00"){
-var ucapanWaktu = 'Selamat petang'
+var ucapanWaktu = 'Good evening'
                                          }
 if(time3 < "18:00:00"){
-var ucapanWaktu = 'Selamat sore'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time3 < "15:00:00"){
-var ucapanWaktu = 'Selamat siang'
+var ucapanWaktu = 'good afternoon'
                                          }
 if(time3 < "11:00:00"){
-var ucapanWaktu = 'Selamat pagi'
+var ucapanWaktu = 'Good morning'
                                          }
 if(time3 < "03:30:00"){
-var ucapanWaktu = 'Selamat malam'
+var ucapanWaktu = 'Good night'
 										}
                     sec = []
           sec.push({
             "rows": [
-              {
-                "title": "List Menu",
-                "description": "", 
-                "rowId": `#listmenu`
-              }, 
               {
                 "title": "Group Menu", 
                 "description": "", 
@@ -2237,39 +2066,9 @@ var ucapanWaktu = 'Selamat malam'
                 "rowId": `#dwmenu`
               }, 
               {
-                "title": "Sticker Menu", 
-                "description": "", 
-                "rowId": `#smenu`
-              }, 
-              {
-                "title": "Education Menu", 
-                "description": "", 
-                "rowId": `#emenu`
-              }, 
-              {
                 "title": "Searching Menu", 
                 "description": "", 
                 "rowId": `#srcmenu`
-              }, 
-              {
-                "title": "Primbon Menu", 
-                "description": "", 
-                "rowId": `#pmenu`
-              }, 
-              {
-                "title": "Random Menu", 
-                "description": "", 
-                "rowId": `#rnmenu`
-              }, 
-              {
-                "title": "Text Maker", 
-                "description": "", 
-                "rowId": `#txmaker`
-              }, 
-              {
-                "title": "Image Maker", 
-                "description": "", 
-                "rowId": `#imgmaker`
               }, 
               {
                 "title": "Other Menu", 
@@ -2281,12 +2080,12 @@ var ucapanWaktu = 'Selamat malam'
                 "description": "", 
                 "rowId": `#ownerm`
               }
-              ], title: `Pilih Satu ya kak`
+              ], title: `Choose one, brother`
               })
           	let po = client.prepareMessageFromContent(from, {
 				  "listMessage":{
-                  "title": `MENU J-BOT`,
-                  "description": `${ucapanWaktu} kak ${pushname}`,
+                  "title": `MENU DOC-BOT`,
+                  "description": `${ucapanWaktu} BRO/SIS ${pushname}`,
                   "buttonText": "MENU!",
                   "listType": "SINGLE_SELECT",
                   "sections": sec}}, {}) 

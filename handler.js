@@ -68,6 +68,11 @@ var ucapanWaktu = 'Good night'
           sec.push({
             "rows": [
               {
+                "title": "List Menu",
+                "description": "", 
+                "rowId": `${data.prefix}listmenu`
+              },              
+              {
                 "title": "Group Menu", 
                 "description": "", 
                 "rowId": `${data.prefix}gmenu`
@@ -712,7 +717,7 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
             if(dataUser[data.sender].premium) return data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\nYou are a premium user have unlimited access!`)
             limits = configs.maxLimit - dataUser[data.sender].limit
             if(limits <= 0) return data.reply("```" + `Your limit is already finished` + "```")
-            data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\n Your limit left ${limits || 30}\nThe daily limit is reset hours 00.00\nIf you want to get unlimited limit, please chat owner bot type !owner`)
+            data.reply(`Hai @${data.sender.split('@')[0]} 👋🏻\n Your limit left ${limits || 30}\nThe daily limit is reset hours 00.00\nIf you want to get unlimited limit\nplease chat with BOT\n wa.me/919061363103`)
         })
         Client.cmd.on('sourcecode', async (data) => {
 		data.reply(`HE HE YA BOOI :)`)
@@ -741,25 +746,25 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
         Client.cmd.on('addvn', async (data) => {
             if(!data.isOwner) return data.reply(mess.ownerOnly)
             if(!data.isQuotedAudio) return data.reply('Reply vn/audio!')
-            if(data.body == "") return data.reply(`Kirim perintah ${data.prefix}addvn [ nama ]\nContoh ${data.command}addvn hai`)
-            if(vn.includes(data.body)) return data.reply('Nama vn sudah ada, harap gunakan nama lain')
+            if(data.body == "") return data.reply(`Kirim perintah ${data.prefix}addvn [ name ]\nExample ${data.command}addvn hai`)
+            if(vn.includes(data.body)) return data.reply('The vn name already exists, please use another name')
             nv = await data.downloadMediaQuotedMessage()
             fs.writeFileSync(`./lib/vn/${data.body}.mp3`, nv)
             global.vn.push(data.body)
             fs.writeFileSync('./lib/json/vn.json', JSON.stringify(vn))
-            data.reply(`Berhasil menambahkan vn ${data.body} dari database`)
+            data.reply(`Successfully added vn ${data.body} from database`)
         })
         Client.cmd.on('delvn', async (data) => {
             if(!data.isOwner) return data.reply(mess.ownerOnly)
-            if(data.body == "") return data.reply(`Kirim perintah ${data.prefix}addvn [ nama ]\nContoh ${data.command}addvn hai`)
-            if(!vn.includes(data.body)) return data.reply('vn tidak ditemukan!')
+            if(data.body == "") return data.reply(`Kirim perintah ${data.prefix}addvn [ name ]\nExample ${data.command}addvn hai`)
+            if(!vn.includes(data.body)) return data.reply('vn not found!')
             global.vn.splice(vn.indexOf(data.body), 1)
             fs.writeFileSync('./lib/json/vn.json', JSON.stringify(vn, null, 2))
             fs.unlinkSync(`./lib/vn/${data.body}.mp3`)
-            data.reply(`Berhasil mengahpus vn ${data.body} dari database`)
+            data.reply(`Successfully deleted vn ${data.body} from database`)
         })
         Client.cmd.on('listvn', async (data) => {
-            let listvn = 'Ketik nama vn untuk mendownload vn\n\n*List vn*:\n\n'
+            let listvn = 'Type vn name to download vn\n\n*List vn*:\n\n'
             vn.forEach((vnn, i) => listvn += `*${i+1}*. ${vnn}\n`)
             data.reply(listvn)
         })
@@ -819,8 +824,11 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
             Client.acceptInviteLink(data.body).then(() => data.reply('ok')).catch(() => data.reply('failed'))
         })
         Client.cmd.on('owner', async (data) => {
-            Client.sendContact(data.from, { number: configs.ownerList[0].split('@')[0], name: 'DOCEDITOR' }, data.message)
+            Client.sendContact(data.from, { number: configs.ownerList[0].split('@')[0], name: 'EVA' }, data.message)
         })
+        Client.cmd.on('owner', async (data) => {
+            Client.sendContact(data.from, { number: configs.ownerList2[0].split('@')[0], name: 'DOCEDITOR' }, data.message)
+        })        
         Client.cmd.on('fetch', async(data) => {
            if (isLimit(data.sender)) return data.reply(mess.limit)
            if (data.body == "") return data.reply('input url')
@@ -1222,12 +1230,12 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
                     },
                     data: bodyForm.getBuffer()
                 })
-                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'missing.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'missing.jpg', '*Image created successfully!* ', data.message)
             } else if(data.mentionedJidList.length > 0) {
                 text = data.body.split('|')
                 ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
                 if(!ppUrl) return data.reply('Profile picture not found!')
-                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/missing-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}&text1=${text[0]}&text2=${text[1]}&text3=${text[2]}`, 'missing.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/missing-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}&text1=${text[0]}&text2=${text[1]}&text3=${text[2]}`, 'missing.jpg', '*Image created successfully!* ', data.message)
             } else data.reply(`Wrong format!, Example: tag someone or reply image\n${data.prefix}missing lost|idk|call xxxxx|@${client.user.jid.split('@')[0]}`)
 
         })
@@ -1246,11 +1254,11 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
                     },
                     data: bodyForm.getBuffer()
                 })
-                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Image created successfully!* ', data.message)
             } else if(data.mentionedJidList.length > 0) {
                 ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
                 if(!ppUrl) return data.reply('Profile picture not found!')
-                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/calender?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/calender?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Image created successfully!* ', data.message)
             } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}calender`)
 
         })
@@ -1269,11 +1277,11 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
                     },
                     data: bodyForm.getBuffer()
                 })
-                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Image created successfully!* ', data.message)
             } else if(data.mentionedJidList.length > 0) {
                 ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
                 if(!ppUrl) return data.reply('Profile picture not found!')
-                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/removebg?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/removebg?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Image created successfully!* ', data.message)
             } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}calender`)
 
         })
@@ -1292,11 +1300,11 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
                     },
                     data: bodyForm.getBuffer()
                 })
-                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Image created successfully!* ', data.message)
             } else if(data.mentionedJidList.length > 0) {
                 ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
                 if(!ppUrl) return data.reply('Profile picture not found!')
-                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/draw-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/draw-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Image created successfully!* ', data.message)
             } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}drawing`)
 
         })
@@ -1315,11 +1323,11 @@ Client.sendFileFromUrl(data.from, `${ytm.link}`, `${ytm.title} - Download.mp4`, 
                     },
                     data: bodyForm.getBuffer()
                 })
-                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromBase64(data.from, getAxios.data.toString('base64'), 'p.jpg', '*Image created successfully!* ', data.message)
             } else if(data.mentionedJidList.length > 0) {
                 ppUrl = await client.getProfilePicture(data.mentionedJidList[0])
                 if(!ppUrl) return data.reply('Profile picture not found!')
-                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/sketch-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Gambar berhasil dibuat!* ', data.message)
+                Client.sendFileFromUrl(data.from, `${configs.apiUrl}/api/sketch-image?apikey=${configs.zeksKey}&image=${encodeURIComponent(ppUrl)}`, 'calender.jpg', '*Image created successfully!* ', data.message)
             } else data.reply(`Wrong format!, tag someone or reply image with ${data.prefix}drawing`)
 
         })
@@ -1443,14 +1451,14 @@ RAM : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.ro
                                      {
                                        buttonId: `${data.prefix}infom`,
                                        buttonText: {
-                                          displayText: "📄 INFO"
+                                          displayText: "📄 𝐈𝐍𝐅𝐎"
                                         },
                                          "type": "RESPONSE"
                                      },
                                      {
                                        buttonId: `${data.prefix}owner`,
                                        buttonText: {
-                                          displayText: "👤 OWNER"
+                                          displayText: "👤 𝐎𝐖𝐍𝐄𝐑"
                                         },
                                          "type": "RESPONSE"
                                      },
@@ -1520,9 +1528,7 @@ case 'audtag':
                 case 'matrix':
                 case 'breakwall':
                 case 'gneon':
-                case 'dropwater':
                 case 'tfire':
-                case 'sandw':
                 case 'epep':
                 case 'gplaybutton':
                 case 'splaybutton':
@@ -1538,7 +1544,6 @@ case 'audtag':
                 case 'crismes':
                 case 'flametext':
                 case 'glowtext':
-                case 'smoketext':
                 case 'flowertext':
                 case 'lithgtext':
                 case 'nulis':
@@ -1546,26 +1551,7 @@ case 'audtag':
                     if(isLimit(data.sender)) return data.reply(mess.limit)
                     if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ teks ]*\nContoh : ${data.prefix}${data.command} shiro`)
                     data.reply(mess.wait)
-                    Client.sendFileFromUrl(from, `${configs.apiUrl}/api/${command}?text=${data.body}&apikey=${configs.zeksKey}`, 'gambar.jpg', `*Gambar berhasil dibuat!* @${data.sender.split('@')[0]}`, message)
-                    } catch {
-                        data.reply('error')
-                    }
-                    break
-                case 'wolflogo':
-                case 'logoaveng':
-                case 'phlogo':
-                case 'marvellogo':
-                case 'gtext':
-                case 'pubglogo':
-                case 'snowwrite':
-                case 'watercolour':
-                    try {
-                    if(isLimit(data.sender)) return data.reply(mess.limit)
-                    if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ teks1|teks2 ]*\nContoh : ${data.prefix}${data.command} shiro|elios`)
-                    data.reply(mess.wait)
-                    p = data.body
-                    text = p.split('|')
-                    Client.sendFileFromUrl(from, `${configs.apiUrl}/api/${command}?apikey=${configs.zeksKey}&text1=${text[0]}&text2=${text[1]}`, 'p.jpg', `*Gambar berhasil dibuat!* @${data.sender.split('@')[0]}`, message)
+                    Client.sendFileFromUrl(from, `${configs.apiUrl}/api/${command}?text=${data.body}&apikey=${configs.zeksKey}`, 'gambar.jpg', `*Image created successfully!* @${data.sender.split('@')[0]}`, message)
                     } catch {
                         data.reply('error')
                     }
@@ -1576,7 +1562,7 @@ case 'audtag':
                     if(isLimit(data.sender)) return data.reply(mess.limit)
                     if(data.body == "") return data.reply(`Kirim perintah *${data.prefix}${data.command} [ teks ]*\nContoh : ${data.prefix}${data.command} shiro`)
                     data.reply(mess.wait)
-                    Client.sendFileFromUrl(from, `${configs.apiUrl}/api/hartatahta?text=${data.body}&apikey=${configs.zeksKey}`, 'harta.jpg', `*Gambar berhasil dibuat!* @${data.sender.split('@')[0]}`, message)
+                    Client.sendFileFromUrl(from, `${configs.apiUrl}/api/hartatahta?text=${data.body}&apikey=${configs.zeksKey}`, 'harta.jpg', `*Image created successfully!* @${data.sender.split('@')[0]}`, message)
                     Client.sendStickerFromUrl(from, `${configs.apiUrl}/api/hartatahta?text=${data.body}&apikey=${configs.zeksKey}`, message, {
                         crop: false,
                         pack: 'Pack',
